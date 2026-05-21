@@ -78,3 +78,7 @@ packages/
 
 # JetBrains
 *.DotSettings
+
+# Backups
+*.cs~
+*~
