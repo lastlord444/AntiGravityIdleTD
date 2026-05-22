@@ -16,9 +16,9 @@ Main branch daha sonra stable release için oluşturulacaktır.
 - Scope dışı dosya değiştirilmez.
 - Unity scene/prefab değişiklikleri açıkça raporlanır.
 - Lisansı belirsiz asset veya repo kodu eklenmez.
-- GPL kod projeye alınmaz.
+- GPL veya copyleft lisanslı kod projeye alınmaz.
 - BlockForge kodu ana projeye geri getirilmez.
-- Referans repolar base olarak kullanılmaz; sadece pattern olarak incelenir.
+- Referans repo stratejisi: Lisansı uygun açık kaynak kodlar (örn. Unlicense/MIT/CC0) incelenip uyarlanabilir; ancak proje bütünlüğü için körü körüne kopyalama veya ProjectSettings/Packages aktarımı yapılmaz. Kaynak ve lisans her zaman THIRD_PARTY_ASSETS.md dosyasına işlenir.
 
 ## Current Product Direction
 İlk hedef tam oyun değil, çalışan vertical slice:
