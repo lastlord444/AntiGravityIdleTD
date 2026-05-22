@@ -1,0 +1,56 @@
+using UnityEngine;
+
+namespace AntiGravityTD.Gameplay.Enemies
+{
+    /// <summary>
+    /// Düşman nesnelerinin can değerlerini ve hasar alma mantığını yönetir.
+    /// Canı sıfıra ulaştığında düşman nesnesini imha eder.
+    /// </summary>
+    public class EnemyHealth : MonoBehaviour
+    {
+        [SerializeField] private float maxHealth = 10.0f;
+        
+        private float currentHealth;
+
+        /// <summary>
+        /// Düşmanın hayatta olup olmadığını belirtir.
+        /// </summary>
+        public bool IsAlive => currentHealth > 0.0f;
+
+        /// <summary>
+        /// Düşmanın anlık can değerini döner.
+        /// </summary>
+        public float CurrentHealth => currentHealth;
+
+        private void Start()
+        {
+            currentHealth = maxHealth;
+        }
+
+        /// <summary>
+        /// Düşmana belirtilen miktarda hasar uygular.
+        /// </summary>
+        /// <param name="amount">Hasar miktarı.</param>
+        public void TakeDamage(float amount)
+        {
+            if (amount <= 0.0f || !IsAlive) return;
+
+            currentHealth -= amount;
+
+            if (currentHealth <= 0.0f)
+            {
+                Die();
+            }
+        }
+
+        /// <summary>
+        /// Düşman öldüğünde tetiklenir ve nesneyi imha eder.
+        /// </summary>
+        private void Die()
+        {
+            Debug.Log($"[EnemyHealth] Enemy defeated: {gameObject.name}");
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+    }
+}
