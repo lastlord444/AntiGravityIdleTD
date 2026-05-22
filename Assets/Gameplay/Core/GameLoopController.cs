@@ -95,6 +95,10 @@ namespace AntiGravityTD.Gameplay.Core
             }
 
             SetState(GameState.Lost);
+            if (waveController != null)
+            {
+                waveController.StopWaves();
+            }
             Debug.Log("[GameLoopController] Oyun kaybedildi!");
         }
 

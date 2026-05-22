@@ -52,6 +52,12 @@ namespace AntiGravityTD.Gameplay.Waves
         /// </summary>
         public void StartWaves()
         {
+            if (waveCoroutine != null)
+            {
+                Debug.LogWarning("[WaveController] StartWaves() çağrıldı fakat zaten çalışan bir dalga coroutine'i var!");
+                return;
+            }
+
             if (waves == null || waves.Length == 0)
             {
                 Debug.LogError("[WaveController] Dalga tanımları boş! Waves dizisi atanmamış.");
@@ -66,6 +72,19 @@ namespace AntiGravityTD.Gameplay.Waves
 
             currentWaveIndex = 0;
             waveCoroutine = StartCoroutine(RunWaves());
+        }
+
+        /// <summary>
+        /// Aktif dalga üretimini durdurur.
+        /// </summary>
+        public void StopWaves()
+        {
+            if (waveCoroutine != null)
+            {
+                StopCoroutine(waveCoroutine);
+                waveCoroutine = null;
+            }
+            isSpawning = false;
         }
 
         /// <summary>
@@ -154,6 +173,7 @@ namespace AntiGravityTD.Gameplay.Waves
             // Tüm dalgalar tamamlandı
             Debug.Log("[WaveController] Tüm dalgalar tamamlandı!");
             OnAllWavesCompleted?.Invoke();
+            waveCoroutine = null;
         }
 
         private IEnumerator WaitForAllEnemiesDefeated()
