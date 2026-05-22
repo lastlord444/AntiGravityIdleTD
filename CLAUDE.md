@@ -12,11 +12,11 @@ Branch: develop aktif geliştirme branch’idir. Feature branch zorunludur.
 ## Hard Rules
 - Kod yazmadan önce repo truth oku.
 - Dosya değişiklik planı vermeden uygulama yapma.
-- Gameplay kodu ve scene değişikliği aynı PR’da karışmasın.
+- Gameplay kodu, asset import ve scene değişiklikleri ayrı PR’larda tutulmalıdır.
 - Main/develop direkt push yok.
 - Asset lisansı belirsizse ekleme.
-- GPL kod alma.
-- Referans repoyu base yapma.
+- GPL veya copyleft lisanslı kod alma.
+- Referans repo stratejisi: Lisansı uygun açık kaynak kodlar (örn. Unlicense/MIT/CC0) incelenip uyarlanabilir; ancak proje bütünlüğü için körü körüne kopyalama veya ProjectSettings/Packages aktarımı yapılmaz. Kaynak ve lisans her zaman THIRD_PARTY_ASSETS.md dosyasına işlenir.
 - BlockForge kodunu ana projeye geri getirme.
 - Idle, anti-gravity, monetization, real SDK, cloud, multiplayer ilk vertical slice kapsamı değildir.
 
@@ -34,23 +34,21 @@ Amaç:
 - basic UI
 - Android debug build
 
-## Issue Order
-1. Project OS + TD recovery + agent workflow
-2. Enemy + waypoint spike
-3. Tower shoots enemy
-4. Wave + game loop
-5. Tower placement + gold
-6. Basic UI
-7. Android build + playtest
-8. Anti-gravity spike
-9. Idle progression v0.1
+## Issue Order & PR Roadmap
+- PR #5 docs: reference audit and visual direction (Tamamlanıyor)
+- PR #6 art: import Kenney CC0 prototype sprites
+- PR #7 scene: rebuild visual tower shooting scene with Kenney assets
+- PR #8 gameplay: wave/base HP/gold loop
+- PR #9 UI: tower placement & game status UI
+- PR #10 build: Android debug build & playtest
+- PR #11 anti-gravity: gravity mechanic spike
+- PR #12 idle: progression v0.1
 
-## Reference Repos
-- Brackeys/Tower-Defense-Tutorial: core TD loop reference only
-- prabdhal/Tower-Defence-3D: upgrade/progression reference only
-- DrFlower/TowerDefense-GameFramework-Demo: advanced architecture reading only
-- thiago-souzaf/Tower-Defense-Game: modern Unity reference only
-- davda54/tower-defense-unity: Android/Kenney reference only
+## Reference Repos & Visual Strategy
+- Brackeys/Tower-Defense-Tutorial: Core TD loop reference (Unlicense / Public Domain). Dalga oluşturucu, can/altın ve kule inşa mekanikleri uyarlanabilir.
+- DrFlower/TowerDefense-GameFramework-Demo: İleri düzey mimari/tasarım referansı. Veri odaklı (data-driven) config ve object pool fikirleri incelenir; ağır framework koda eklenmez.
+- davda54/tower-defense-unity: Android/Kenney kullanım referansı. Lisans doğrulanmadan doğrudan kod alınmaz.
+- Kenney CC0 Assets: Prototip görsel varlık kaynağı (Tower Defense 2D, Space/Pixel UI).
 
 ## Agent Output Contract
 Her görev çıktısı şu formatta olmalı:
