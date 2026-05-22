@@ -19,6 +19,12 @@ namespace AntiGravityTD.Gameplay.Enemies
         [SerializeField] private WaypointPath path;
         [SerializeField] private float speed = 2.0f;
         [SerializeField] private float waypointReachThreshold = 0.05f;
+        [SerializeField] private int baseDamage = 10;
+
+        /// <summary>
+        /// Düşman yolun sonuna ulaştığında base'e vereceği hasar miktarı.
+        /// </summary>
+        public int BaseDamage => baseDamage;
 
         private int currentWaypointIndex = 0;
         private bool isPathValid = false;
