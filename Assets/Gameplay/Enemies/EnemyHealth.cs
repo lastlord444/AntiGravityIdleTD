@@ -16,8 +16,14 @@ namespace AntiGravityTD.Gameplay.Enemies
         public static event Action<EnemyHealth> OnAnyEnemyDefeated;
 
         [SerializeField] private float maxHealth = 10.0f;
+        [SerializeField] private int goldReward = 10;
         
         private float currentHealth;
+
+        /// <summary>
+        /// Düşman yenildiğinde oyuncunun kazanacağı altın miktarı.
+        /// </summary>
+        public int GoldReward => goldReward;
 
         /// <summary>
         /// Düşmanın hayatta olup olmadığını belirtir.

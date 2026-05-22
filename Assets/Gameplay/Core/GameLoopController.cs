@@ -1,7 +1,9 @@
 using System;
 using UnityEngine;
+using AntiGravityTD.Core;
 using AntiGravityTD.Gameplay.Enemies;
 using AntiGravityTD.Gameplay.Waves;
+using AntiGravityTD.Gameplay.Base;
 
 namespace AntiGravityTD.Gameplay.Core
 {
@@ -42,6 +44,9 @@ namespace AntiGravityTD.Gameplay.Core
 
             // Düşman base'e ulaştığında lose koşulunu dinle
             EnemyMover.OnAnyEnemyReachedEnd += HandleEnemyReachedEnd;
+
+            // Base imha edildiğinde lose koşulunu dinle
+            BaseHealth.OnAnyBaseDestroyed += HandleBaseDestroyed;
         }
 
         private void OnDisable()
@@ -53,6 +58,7 @@ namespace AntiGravityTD.Gameplay.Core
             }
 
             EnemyMover.OnAnyEnemyReachedEnd -= HandleEnemyReachedEnd;
+            BaseHealth.OnAnyBaseDestroyed -= HandleBaseDestroyed;
         }
 
         /// <summary>
@@ -129,7 +135,34 @@ namespace AntiGravityTD.Gameplay.Core
 
         private void HandleEnemyReachedEnd(EnemyMover enemy)
         {
-            Debug.Log($"[GameLoopController] Düşman base'e ulaştı: {enemy.gameObject.name} — kaybetme koşulu sağlandı.");
+            // Eğer sahmede veya ServiceLocator üzerinde bir BaseHealth varsa, anında kaybetme yerine hasar almasını bekleriz.
+            // Aksi takdirde (eski prototip davranışı) oyunu anında kaybettiririz.
+            bool hasBaseHealth = false;
+
+            if (ServiceLocator.Instance != null)
+            {
+                hasBaseHealth = ServiceLocator.Instance.IsRegistered<BaseHealth>();
+            }
+
+            if (!hasBaseHealth)
+            {
+                hasBaseHealth = FindFirstObjectByType<BaseHealth>() != null;
+            }
+
+            if (!hasBaseHealth)
+            {
+                Debug.Log($"[GameLoopController] Sahnede BaseHealth bulunamadı. Düşman base'e ulaştı: {enemy.gameObject.name} — eski davranışla anında kaybetme tetikleniyor.");
+                TriggerLose();
+            }
+            else
+            {
+                Debug.Log($"[GameLoopController] Sahnede/Servislerde BaseHealth bulundu. Düşmanın ulaşması BaseHealth hasar akışı tarafından yönetilecek.");
+            }
+        }
+
+        private void HandleBaseDestroyed(BaseHealth baseHealth)
+        {
+            Debug.Log($"[GameLoopController] Base imha edildi: {baseHealth.gameObject.name} — kaybetme koşulu sağlandı.");
             TriggerLose();
         }
     }
