@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using AntiGravityTD.Gameplay.Path;
 
@@ -9,6 +10,12 @@ namespace AntiGravityTD.Gameplay.Enemies
     /// </summary>
     public class EnemyMover : MonoBehaviour
     {
+        /// <summary>
+        /// Herhangi bir düşman yolun sonuna ulaştığında tetiklenir.
+        /// GameLoopController tarafından lose koşulu olarak dinlenir.
+        /// </summary>
+        public static event Action<EnemyMover> OnAnyEnemyReachedEnd;
+
         [SerializeField] private WaypointPath path;
         [SerializeField] private float speed = 2.0f;
         [SerializeField] private float waypointReachThreshold = 0.05f;
@@ -98,6 +105,7 @@ namespace AntiGravityTD.Gameplay.Enemies
         private void OnReachedEnd()
         {
             Debug.Log($"[EnemyMover] Düşman son waypoint'e ulaştı ve yok ediliyor: {gameObject.name}");
+            OnAnyEnemyReachedEnd?.Invoke(this);
             gameObject.SetActive(false);
             Destroy(gameObject);
         }

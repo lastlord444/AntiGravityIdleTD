@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace AntiGravityTD.Gameplay.Enemies
@@ -8,6 +9,12 @@ namespace AntiGravityTD.Gameplay.Enemies
     /// </summary>
     public class EnemyHealth : MonoBehaviour
     {
+        /// <summary>
+        /// Herhangi bir düşman yok edildiğinde tetiklenir.
+        /// WaveController ve gelecekteki ekonomi sistemi tarafından dinlenir.
+        /// </summary>
+        public static event Action<EnemyHealth> OnAnyEnemyDefeated;
+
         [SerializeField] private float maxHealth = 10.0f;
         
         private float currentHealth;
@@ -49,6 +56,7 @@ namespace AntiGravityTD.Gameplay.Enemies
         private void Die()
         {
             Debug.Log($"[EnemyHealth] Enemy defeated: {gameObject.name}");
+            OnAnyEnemyDefeated?.Invoke(this);
             gameObject.SetActive(false);
             Destroy(gameObject);
         }
