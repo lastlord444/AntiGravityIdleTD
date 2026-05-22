@@ -20,4 +20,12 @@ Harici bir varlık eklendiğinde bu dosyanın altına aşağıdaki formatta kay�
 
 ## Aktif Kayıtlar
 
-*(Henüz projeye harici bir asset veya kod uyarlanıp import edilmemiştir. Bir sonraki PR #6 aşamasında Kenney CC0 spriteları eklendiğinde buraya ilk kayıtlar işlenecektir.)*
+### Kenney Tower Defense (Top-Down)
+- **Kaynak URL**: https://kenney.nl/assets/tower-defense-top-down
+- **Lisans Türü**: Creative Commons CC0
+- **İçe Aktarılan Dosya Yolları**: 
+  - `Assets/Content/Art/Kenney/TowerDefenseTopDown/towerDefense_tilesheet.png`
+  - `Assets/Content/Art/Kenney/TowerDefenseTopDown/towerDefense_tilesheet.png.meta`
+- **Eklenme Tarihi**: 2026-05-22
+- **Açıklama/Kullanım Amacı**: Prototip kule (tower), düşman (enemy), mermi (projectile) ve harita/yol (map/path) spriteları. İlk dikey kesit (vertical slice) görselleştirmesinde kullanılacaktır.
+
