@@ -14,6 +14,7 @@ namespace AntiGravityTD.Gameplay.Core
     {
         [Header("Dalga Kontrolcüsü")]
         [SerializeField] private WaveController waveController;
+        [SerializeField] private bool startAutomatically = false;
 
         private GameState currentState = GameState.NotStarted;
 
@@ -22,6 +23,14 @@ namespace AntiGravityTD.Gameplay.Core
 
         /// <summary>Oyun durumu değiştiğinde tetiklenir.</summary>
         public event Action<GameState> OnGameStateChanged;
+
+        private void Start()
+        {
+            if (startAutomatically)
+            {
+                StartGame();
+            }
+        }
 
         private void OnEnable()
         {
