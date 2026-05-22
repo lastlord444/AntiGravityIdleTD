@@ -205,6 +205,94 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &132463704
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 132463709}
+  - component: {fileID: 132463708}
+  - component: {fileID: 132463707}
+  - component: {fileID: 132463706}
+  - component: {fileID: 132463705}
+  m_Layer: 0
+  m_Name: RuntimeStateRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &132463705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132463704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5b577c9c5ab5984d9543eabb5ed1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AntiGravityTD.Gameplay.Economy.EnemyGoldRewardSystem
+--- !u!114 &132463706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132463704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db151e4ed66d1144dafcd17c6e85d9ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AntiGravityTD.Gameplay.Base.EnemyBaseDamageSystem
+--- !u!114 &132463707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132463704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f6c55081b7e1740bce459acc9787c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AntiGravityTD.Gameplay.Economy.GoldWallet
+  startingGold: 100
+  goldChangedChannel: {fileID: 0}
+--- !u!114 &132463708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132463704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a9fb550aca1744fa4bd7ea7c97f5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AntiGravityTD.Gameplay.Base.BaseHealth
+  maxHealth: 100
+  healthChangedChannel: {fileID: 0}
+  baseDestroyedChannel: {fileID: 0}
+--- !u!4 &132463709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132463704}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &380981035
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,6 +704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AntiGravityTD.Gameplay.Enemies.EnemyHealth
   maxHealth: 3
+  goldReward: 10
 --- !u!114 &1006507609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -631,6 +720,7 @@ MonoBehaviour:
   path: {fileID: 612464163}
   speed: 2
   waypointReachThreshold: 0.05
+  baseDamage: 25
 --- !u!212 &1006507610
 SpriteRenderer:
   serializedVersion: 2
@@ -856,3 +946,4 @@ SceneRoots:
   - {fileID: 108690948}
   - {fileID: 380981037}
   - {fileID: 1619010483}
+  - {fileID: 132463709}
