@@ -1,4 +1,7 @@
 using UnityEngine;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+#endif
 
 namespace AntiGravityTD.Gameplay.Placement
 {
@@ -7,6 +10,7 @@ namespace AntiGravityTD.Gameplay.Placement
     /// Seçili bir TowerPlacementPoint ile TowerPlacementController arasında aracılık eder.
     /// Doğrudan mobil input işlemez — gelecekte bir sahne bileşeni veya UI tarafından çağrılır.
     /// Opsiyonel debug klavye girişi (varsayılan kapalı) smoke test için vardır.
+    /// Input System ve legacy Input Manager'ı koşullu derleme ile destekler.
     /// </summary>
     public class TowerPlacementInputHandler : MonoBehaviour
     {
@@ -48,7 +52,7 @@ namespace AntiGravityTD.Gameplay.Placement
         {
             if (!allowKeyboardDebugInput) return;
 
-            if (Input.GetKeyDown(debugPlaceKey))
+            if (WasDebugPlaceKeyPressed())
             {
                 var result = TryPlaceSelected();
                 Debug.Log($"[TowerPlacementInputHandler] Debug tuş ({debugPlaceKey}) sonucu: " +
@@ -124,6 +128,32 @@ namespace AntiGravityTD.Gameplay.Placement
         {
             if (feedbackState == null) return;
             feedbackState.SetResult(result);
+        }
+
+        /// <summary>
+        /// Debug yerleştirme tuşunun bu karede basılıp basılmadığını kontrol eder.
+        /// Input System ve legacy Input Manager'ı koşullu derleme ile destekler.
+        /// </summary>
+        /// <returns>Tuş bu karede basıldıysa true.</returns>
+        private bool WasDebugPlaceKeyPressed()
+        {
+#if ENABLE_INPUT_SYSTEM
+            var keyboard = Keyboard.current;
+            if (keyboard == null) return false;
+
+            if (System.Enum.TryParse<Key>(debugPlaceKey.ToString(), true, out var inputSystemKey)
+                && inputSystemKey != Key.None)
+            {
+                var control = keyboard[inputSystemKey];
+                return control != null && control.wasPressedThisFrame;
+            }
+
+            return false;
+#elif ENABLE_LEGACY_INPUT_MANAGER
+            return Input.GetKeyDown(debugPlaceKey);
+#else
+            return false;
+#endif
         }
     }
 }
