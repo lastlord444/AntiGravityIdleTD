@@ -80,6 +80,15 @@ namespace AntiGravityTD.Gameplay.Placement
         }
 
         /// <summary>
+        /// Seçili yerleştirme noktasına kule yerleştirmeyi talep eder.
+        /// Unity UI Button OnClick olaylarına kolayca bağlanabilmesi için void döner.
+        /// </summary>
+        public void RequestPlaceSelected()
+        {
+            TryPlaceSelected();
+        }
+
+        /// <summary>
         /// Belirtilen noktaya kule yerleştirmeyi dener.
         /// Controller yoksa MissingPlacementController ile başarısız döner.
         /// </summary>
