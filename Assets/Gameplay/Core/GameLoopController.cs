@@ -135,6 +135,9 @@ namespace AntiGravityTD.Gameplay.Core
 
         private void HandleEnemyReachedEnd(EnemyMover enemy)
         {
+            // Düşman zaten imha edilmiş olabilir
+            if (enemy == null) return;
+
             // Eğer sahmede veya ServiceLocator üzerinde bir BaseHealth varsa, anında kaybetme yerine hasar almasını bekleriz.
             // Aksi takdirde (eski prototip davranışı) oyunu anında kaybettiririz.
             bool hasBaseHealth = false;
