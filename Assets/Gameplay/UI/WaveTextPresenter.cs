@@ -16,8 +16,9 @@ namespace AntiGravityTD.Gameplay.UI
         [SerializeField] private WaveController waveController;
 
         private bool allWavesCompleted = false;
+        private bool isSubscribed = false;
 
-        private void Start()
+        private void OnEnable()
         {
             if (waveController == null)
             {
@@ -26,9 +27,13 @@ namespace AntiGravityTD.Gameplay.UI
 
             if (waveController != null)
             {
-                waveController.OnWaveStarted += HandleWaveStarted;
-                waveController.OnWaveCompleted += HandleWaveCompleted;
-                waveController.OnAllWavesCompleted += HandleAllWavesCompleted;
+                if (!isSubscribed)
+                {
+                    waveController.OnWaveStarted += HandleWaveStarted;
+                    waveController.OnWaveCompleted += HandleWaveCompleted;
+                    waveController.OnAllWavesCompleted += HandleAllWavesCompleted;
+                    isSubscribed = true;
+                }
                 UpdateDisplay(waveController.CurrentWaveIndex);
             }
             else
@@ -39,11 +44,12 @@ namespace AntiGravityTD.Gameplay.UI
 
         private void OnDisable()
         {
-            if (waveController != null)
+            if (waveController != null && isSubscribed)
             {
                 waveController.OnWaveStarted -= HandleWaveStarted;
                 waveController.OnWaveCompleted -= HandleWaveCompleted;
                 waveController.OnAllWavesCompleted -= HandleAllWavesCompleted;
+                isSubscribed = false;
             }
         }
 

@@ -15,7 +15,9 @@ namespace AntiGravityTD.Gameplay.UI
         [Header("Veri Kaynağı")]
         [SerializeField] private GameLoopController gameLoopController;
 
-        private void Start()
+        private bool isSubscribed = false;
+
+        private void OnEnable()
         {
             if (gameLoopController == null)
             {
@@ -24,7 +26,11 @@ namespace AntiGravityTD.Gameplay.UI
 
             if (gameLoopController != null)
             {
-                gameLoopController.OnGameStateChanged += HandleGameStateChanged;
+                if (!isSubscribed)
+                {
+                    gameLoopController.OnGameStateChanged += HandleGameStateChanged;
+                    isSubscribed = true;
+                }
                 UpdateDisplay(gameLoopController.CurrentState);
             }
             else
@@ -35,9 +41,10 @@ namespace AntiGravityTD.Gameplay.UI
 
         private void OnDisable()
         {
-            if (gameLoopController != null)
+            if (gameLoopController != null && isSubscribed)
             {
                 gameLoopController.OnGameStateChanged -= HandleGameStateChanged;
+                isSubscribed = false;
             }
         }
 
