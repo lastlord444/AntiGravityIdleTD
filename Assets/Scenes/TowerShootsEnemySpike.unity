@@ -2618,6 +2618,88 @@ MonoBehaviour:
   m_pageToDisplay: 1
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
+--- !u!1 &1994949920
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1994949921}
+  - component: {fileID: 1994949922}
+  - component: {fileID: 1994949923}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1994949921
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994949920}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1994949922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994949920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.EventSystems::UnityEngine.EventSystems.EventSystem
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!114 &1994949923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994949920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.InputSystem.UI::UnityEngine.InputSystem.UI.InputSystemUIInputModule
+  m_ActionsAsset: {fileID: 0}
+  m_Point: {fileID: 0}
+  m_LeftClick: {fileID: 0}
+  m_MiddleClick: {fileID: 0}
+  m_RightClick: {fileID: 0}
+  m_ScrollWheel: {fileID: 0}
+  m_Move: {fileID: 0}
+  m_Submit: {fileID: 0}
+  m_Cancel: {fileID: 0}
+  m_TrackedTPointer: {fileID: 0}
+  m_TrackedTClick: {fileID: 0}
+  m_TrackedTMove: {fileID: 0}
+  m_TrackedTOrientation: {fileID: 0}
+  m_TrackedTSelect: {fileID: 0}
+  m_TrackedTScroll: {fileID: 0}
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
+  m_XRTrackingSource: {fileID: 0}
+  m_ActionsInfos: []
+  m_TrackedInfos: []
+  m_Move3DAction: {fileID: 0}
+  m_Click3DAction: {fileID: 0}
 
 
 --- !u!1660057539 &9223372036854775807
@@ -2641,4 +2723,5 @@ SceneRoots:
   - {fileID: 180000043}
   - {fileID: 180000053}
   - {fileID: 1994949801}
+  - {fileID: 1994949921}
 
