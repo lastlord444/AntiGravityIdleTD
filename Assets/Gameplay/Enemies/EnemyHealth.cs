@@ -6,6 +6,7 @@ namespace AntiGravityTD.Gameplay.Enemies
     /// <summary>
     /// Düşman nesnelerinin can değerlerini ve hasar alma mantığını yönetir.
     /// Canı sıfıra ulaştığında düşman nesnesini imha eder.
+    /// isDead bayrağı double-death ve SetActive yarış koşulunu önler.
     /// </summary>
     public class EnemyHealth : MonoBehaviour
     {
@@ -19,6 +20,7 @@ namespace AntiGravityTD.Gameplay.Enemies
         [SerializeField] private int goldReward = 10;
         
         private float currentHealth;
+        private bool isDead;
 
         /// <summary>
         /// Düşman yenildiğinde oyuncunun kazanacağı altın miktarı.
@@ -27,8 +29,14 @@ namespace AntiGravityTD.Gameplay.Enemies
 
         /// <summary>
         /// Düşmanın hayatta olup olmadığını belirtir.
+        /// isDead bayrağı Die() veya dışarıdan MarkDead() çağrıldığında true olur.
         /// </summary>
-        public bool IsAlive => currentHealth > 0.0f;
+        public bool IsAlive => !isDead && currentHealth > 0.0f;
+
+        /// <summary>
+        /// Düşmanın ölü olarak işaretlenip işaretlenmediğini döner.
+        /// </summary>
+        public bool IsDead => isDead;
 
         /// <summary>
         /// Düşmanın anlık can değerini döner.
@@ -46,7 +54,7 @@ namespace AntiGravityTD.Gameplay.Enemies
         /// <param name="amount">Hasar miktarı.</param>
         public void TakeDamage(float amount)
         {
-            if (amount <= 0.0f || !IsAlive) return;
+            if (amount <= 0.0f || isDead) return;
 
             currentHealth -= amount;
 
@@ -57,14 +65,28 @@ namespace AntiGravityTD.Gameplay.Enemies
         }
 
         /// <summary>
+        /// Düşmanı dışarıdan ölü olarak işaretler (örn. yolun sonuna ulaştığında).
+        /// Die() ile aynı Destroy akışını izler ama OnAnyEnemyDefeated tetiklenmez.
+        /// </summary>
+        public void MarkDead()
+        {
+            if (isDead) return;
+            isDead = true;
+            Destroy(gameObject);
+        }
+
+        /// <summary>
         /// Düşman öldüğünde tetiklenir ve nesneyi imha eder.
         /// </summary>
         private void Die()
         {
+            if (isDead) return;
+            isDead = true;
+
             Debug.Log($"[EnemyHealth] Enemy defeated: {gameObject.name}");
             OnAnyEnemyDefeated?.Invoke(this);
-            gameObject.SetActive(false);
             Destroy(gameObject);
         }
     }
 }
+

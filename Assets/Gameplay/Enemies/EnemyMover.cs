@@ -7,6 +7,7 @@ namespace AntiGravityTD.Gameplay.Enemies
     /// <summary>
     /// Düşman objelerinin WaypointPath boyunca hareket etmesini sağlar.
     /// Yol geçerliliğini denetler ve son noktaya ulaşıldığında nesneyi imha eder.
+    /// hasReachedEnd bayrağı double-fire ve SetActive yarış koşulunu önler.
     /// </summary>
     public class EnemyMover : MonoBehaviour
     {
@@ -28,6 +29,7 @@ namespace AntiGravityTD.Gameplay.Enemies
 
         private int currentWaypointIndex = 0;
         private bool isPathValid = false;
+        private bool hasReachedEnd = false;
 
         private void Start()
         {
@@ -36,7 +38,11 @@ namespace AntiGravityTD.Gameplay.Enemies
 
         private void Update()
         {
-            if (!isPathValid) return;
+            if (!isPathValid || hasReachedEnd) return;
+
+            // EnemyHealth tarafından zaten öldürüldüyse hareket etme
+            var health = GetComponent<EnemyHealth>();
+            if (health != null && health.IsDead) return;
 
             MoveAlongPath();
         }
@@ -107,13 +113,28 @@ namespace AntiGravityTD.Gameplay.Enemies
 
         /// <summary>
         /// Düşman yolun sonuna ulaştığında tetiklenir.
+        /// hasReachedEnd bayrağı double-fire'ı önler.
+        /// EnemyHealth.MarkDead() ile ölüm koordinasyonu sağlanır.
         /// </summary>
         private void OnReachedEnd()
         {
+            if (hasReachedEnd) return;
+            hasReachedEnd = true;
+
             Debug.Log($"[EnemyMover] Düşman son waypoint'e ulaştı ve yok ediliyor: {gameObject.name}");
             OnAnyEnemyReachedEnd?.Invoke(this);
-            gameObject.SetActive(false);
-            Destroy(gameObject);
+
+            // EnemyHealth üzerinden koordineli ölüm — double-Destroy'u önler
+            var health = GetComponent<EnemyHealth>();
+            if (health != null)
+            {
+                health.MarkDead();
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
+

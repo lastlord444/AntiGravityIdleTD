@@ -5,6 +5,7 @@ namespace AntiGravityTD.Gameplay.Projectiles
 {
     /// <summary>
     /// Fırlatılan mermilerin hedefe doğru ilerlemesini ve ulaştığında hasar vermesini yönetir.
+    /// Hedef kaybolduysa, öldüyse veya imha edildiyse mermiyi güvenle temizler.
     /// </summary>
     public class ProjectileMover : MonoBehaviour
     {
@@ -30,8 +31,8 @@ namespace AntiGravityTD.Gameplay.Projectiles
         {
             if (!isInitialized) return;
 
-            // Hedef kaybolduysa veya öldüyse mermiyi güvenle imha et
-            if (target == null || !target.IsAlive)
+            // Hedef kaybolduysa, imha edildiyse veya ölü olarak işaretlendiyse
+            if (target == null || target.IsDead)
             {
                 Destroy(gameObject);
                 return;
@@ -51,7 +52,6 @@ namespace AntiGravityTD.Gameplay.Projectiles
         {
             if (target != null && target.IsAlive)
             {
-                Debug.Log($"[ProjectileMover] Hit target: {target.gameObject.name} dealing {damage} damage.");
                 target.TakeDamage(damage);
             }
 
@@ -59,3 +59,4 @@ namespace AntiGravityTD.Gameplay.Projectiles
         }
     }
 }
+
