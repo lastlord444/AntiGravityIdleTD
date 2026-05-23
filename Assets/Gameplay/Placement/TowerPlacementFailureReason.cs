@@ -25,6 +25,9 @@ namespace AntiGravityTD.Gameplay.Placement
         InsufficientGold,
 
         /// <summary>Instantiate işlemi beklenmedik şekilde başarısız oldu.</summary>
-        InstantiateFailed
+        InstantiateFailed,
+
+        /// <summary>TowerPlacementController bulunamadı (null).</summary>
+        MissingPlacementController
     }
 }
